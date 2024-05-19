@@ -94,16 +94,17 @@ export const Icons = {
   search: Search,
   plugZap: PlugZapIcon,
   fileCode: FileCode,
-  pdf2: (
+  pdf2: (props?: HTMLAttributes<HTMLImageElement>) => (
     <Icon
       icon="streamline:convert-pdf-2"
       width={20}
       height={20}
       style={{ color: "#e13333" }}
       className="color-red-500"
+      {...props}
     />
   ),
-  file: ({ ...props }: LucideProps) => (
+  file: (props?: HTMLAttributes<HTMLImageElement>) => (
     <LucideFile width={22} height={22} style={{ color: "#525050" }} />
   ),
   txt: (props?: HTMLAttributes<HTMLImageElement>) => (
@@ -115,29 +116,31 @@ export const Icons = {
       {...props}
     />
   ),
-  csv: (
+  csv: (props?: HTMLAttributes<HTMLImageElement>) => (
     <Icon
       icon="tabler:file-type-csv"
       width={23}
       height={23}
       className="color-gray-500 dark:text-gray-200"
+      {...props}
     />
   ),
-  googleDrive: (
+  googleDrive: (props?: HTMLAttributes<HTMLImageElement>) => (
     <Icon
       icon="logos:google-drive"
       width={20}
       height={20}
       className="text-muted-foreground"
+      {...props}
     />
   ),
-  notion: (
+  notion: (props?: HTMLAttributes<HTMLImageElement>) => (
     <Icon
       icon="devicon:notion"
       width={20}
       height={20}
       className="text-muted-foreground"
-      // style="width: 24px; height: 24px;"
+      {...props}
     />
   ),
 };

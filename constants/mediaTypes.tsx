@@ -15,41 +15,43 @@ export type ItemType =
   | "notion";
 
 export const mediaTypeToIcon = (docRef: DocumentRef): ReactNode => {
-  console.log(docRef.mediaType);
   switch (docRef.mediaType) {
     case "application/pdf":
-      return Icons.pdf2;
+      return Icons.pdf2({});
     case "text/plain":
-      return Icons.txt(); //{ width: 20, height: 20 }
+      return Icons.txt({
+        width: 21,
+        height: 21,
+      } as React.HTMLAttributes<HTMLImageElement>); //
     // case "text/html":
     //     return Icons.fileCode;
     case "text/csv":
-      return Icons.csv;
+      return Icons.csv({});
     case "text/plain":
-      return Icons.googleDrive;
+      return Icons.googleDrive({});
     case "text/plain":
-      return Icons.notion;
+      return Icons.notion();
     default:
-      return Icons.notion;
+      return Icons.notion();
   }
 };
 
 export const itemTypeToIcon = (itemType: ItemType): ReactNode => {
   switch (itemType) {
     case "pdf":
-      return Icons.pdf2;
+      return Icons.pdf2();
     // case "txt":
     //   return Icons.txt;
     // case "html":
     //   return Icons.fileCode;
     case "csv":
-      return Icons.csv;
+      return Icons.csv();
     case "google-drive":
-      return Icons.googleDrive;
+      return Icons.googleDrive();
     case "notion":
-      return Icons.notion;
+      return Icons.notion();
     default:
-      return Icons.notion;
+      return Icons.notion();
   }
 };
 export const mediaTypes: {
