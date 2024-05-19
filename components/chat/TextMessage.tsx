@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
-import { Icons } from "../icons";
 import { format } from "date-fns";
 import { forwardRef } from "react";
 import { ExtendedMessage } from "./Message";
@@ -60,3 +59,5 @@ export const TextMessage = forwardRef<HTMLDivElement, TextMessageProps>(
     );
   },
 );
+
+TextMessage.displayName = "TextMessage";

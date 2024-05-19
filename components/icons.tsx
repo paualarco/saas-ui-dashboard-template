@@ -37,17 +37,10 @@ import {
   FileCode,
   LucideFile,
 } from "lucide-react";
-import {
-  Icon,
-  IconifyIconHTMLElement,
-  IconifyIconProps,
-} from "@iconify-icon/react";
+import { Icon } from "@iconify-icon/react";
 import { HTMLAttributes } from "react";
 export type Icon = LucideIcon;
 
-type IconifyProps = React.ForwardRefExoticComponent<
-  Omit<IconifyIconProps, "ref"> & React.RefAttributes<IconifyIconHTMLElement>
->;
 export const Icons = {
   dashboard: LayoutDashboardIcon,
   logo: Command,

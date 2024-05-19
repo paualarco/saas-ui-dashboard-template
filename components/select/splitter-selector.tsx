@@ -17,7 +17,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useWatch } from "react-hook-form";
 
 const frameworks = [
   {
@@ -34,7 +33,6 @@ export type SplitterSelectorProps = {
 export function SplitterSelector({ value, onChange }: SplitterSelectorProps) {
   const [open, setOpen] = React.useState(false);
 
-  const v = frameworks.find((framework) => framework.value === value)?.label;
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -61,7 +59,6 @@ export function SplitterSelector({ value, onChange }: SplitterSelectorProps) {
                 value === framework.value && "bg-opacity-10",
               )}
               onClick={() => {
-                console.log("select value" + framework.value);
                 onChange(framework.value);
                 setOpen(false);
               }}

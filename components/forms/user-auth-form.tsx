@@ -27,6 +27,7 @@ export default function UserAuthForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
+  setLoading(false);
   const defaultValues = {
     email: "demo@gmail.com",
   };

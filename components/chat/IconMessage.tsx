@@ -1,9 +1,6 @@
 import { cn } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import { Icon, Icons } from "../icons";
-import { format } from "date-fns";
+import { Icons } from "../icons";
 import { forwardRef } from "react";
-import { TextMessage } from "./TextMessage";
 import { ExtendedMessage } from "./Message";
 
 export type IconMessageProps = {
@@ -34,3 +31,4 @@ export const IconMessage = forwardRef<HTMLDivElement, IconMessageProps>(
     );
   },
 );
+IconMessage.displayName = "IconMessage";

@@ -1,9 +1,3 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-  CreateDirItemApiRequest,
-  ListDirItemsApiRequest,
-  ListDirItemsApiResponse,
-} from "./types/model.types";
 import { api } from "./api";
 import {
   ListQueryLogsApiResponse,

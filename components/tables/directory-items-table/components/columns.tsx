@@ -6,7 +6,6 @@ import { DirItem } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 import { LucideFile } from "lucide-react";
 import { mediaTypes } from "@/constants/mediaTypes";
 

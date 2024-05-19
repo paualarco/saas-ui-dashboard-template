@@ -1,16 +1,8 @@
 import { cn } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import { Icons } from "../icons";
-import { format } from "date-fns";
 import { forwardRef } from "react";
 import { TextMessage } from "./TextMessage";
 import { IconMessage } from "./IconMessage";
-import { is } from "date-fns/locale";
-import {
-  itemTypeToIcon,
-  mediaTypeToIcon,
-  mediaTypes,
-} from "@/constants/mediaTypes";
+import { mediaTypeToIcon } from "@/constants/mediaTypes";
 
 export type DocumentRef = {
   id: string;
@@ -80,3 +72,5 @@ export const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(
     );
   },
 );
+
+ChatMessage.displayName = "ChatMessage";

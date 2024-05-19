@@ -1,64 +1,16 @@
 "use client";
 import { Textarea } from "@/components/ui/textarea-autosize";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Paperclip, Send } from "lucide-react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "../ui/use-toast";
-import { useCallback, useRef, useState } from "react";
-import { queryApi } from "@/app/api/queryApi";
+import { Send } from "lucide-react";
+
+import { useRef, useState } from "react";
 
 export type ChatTextareaProps = {
   onSend: (message: string) => void;
   sessionId: string;
 };
 
-const FormSchema = z.object({
-  message: z
-    .string()
-    .min(1, {
-      message: "Message must not be empty.",
-    })
-    .max(300, {
-      message: "Message must not be longer than 300 characters.",
-    }),
-});
-
 export const ChatTextarea = (props: ChatTextareaProps) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
-
-  // const onSubmit = useCallback(
-  //   async (message: string) => {
-  //     console.log("message", message);
-  //     props.onSend(message);
-  //     console.log("onSent");
-  //     toast({
-  //       title: "You submitted the following values:",
-  //       description: (
-  //         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-  //           <code className="text-white">
-  //             {JSON.stringify(message, null, 2)}
-  //           </code>
-  //         </pre>
-  //       ),
-  //     });
-  //     query({ query: message, top_k: 5, session_id: props.sessionId });
-  //   },
-  //   [form],
-  // );
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [message, setMessage] = useState("");

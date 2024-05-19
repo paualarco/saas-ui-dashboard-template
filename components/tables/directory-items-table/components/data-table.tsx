@@ -82,7 +82,7 @@ export function DataTable<TData, TValue>({
         </TableCell>
       </TableRow>
     );
-  }, [isLoading]);
+  }, [columns.length, isLoading]);
 
   return (
     <div className="space-y-4">

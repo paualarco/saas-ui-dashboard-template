@@ -20,7 +20,7 @@ export const mediaTypeToIcon = (docRef: DocumentRef): ReactNode => {
     case "application/pdf":
       return Icons.pdf2;
     case "text/plain":
-      return Icons.txt({ width: 20, height: 20 });
+      return Icons.txt(); //{ width: 20, height: 20 }
     // case "text/html":
     //     return Icons.fileCode;
     case "text/csv":

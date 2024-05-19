@@ -1,18 +1,18 @@
-import fs from "fs"
-import path from "path"
+// import fs from "fs";
+// import path from "path";
 
-const tasks = Array.from({ length: 100 }, () => ({
-  id: `TASK-1`,
-  type: `folder`,
-  title: "Title",
-  status: "Todo",
-  label: "Feature",
-  priority: "High",
-}))
+// const tasks = Array.from({ length: 100 }, () => ({
+//   id: `TASK-1`,
+//   type: `folder`,
+//   title: "Title",
+//   status: "Todo",
+//   label: "Feature",
+//   priority: "High",
+// }));
 
-fs.writeFileSync(
-  path.join(__dirname, "tasks.json"),
-  JSON.stringify(tasks, null, 2)
-)
+// fs.writeFileSync(
+//   path.join(__dirname, "tasks.json"),
+//   JSON.stringify(tasks, null, 2),
+// );
 
-console.log("✅ Tasks data generated.")
+// console.log("✅ Tasks data generated.");

@@ -2,12 +2,11 @@
 // import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { Loader2, MessageSquare } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { ChatMessage, ExtendedMessage } from "./Message";
 import { queryApi } from "@/app/api/queryApi";
 import { v4 as uuid } from "uuid";
-import { is } from "date-fns/locale";
 
 interface MessagesProps {
   fileId: string;
@@ -16,24 +15,21 @@ interface MessagesProps {
   lastMessage?: string;
 }
 
-const Messages = ({
-  fileId,
-  session_id,
-  lastMessage,
-  isProcessing,
-}: MessagesProps) => {
+const Messages = ({ session_id, lastMessage, isProcessing }: MessagesProps) => {
   //   const { isLoading: isAiThinking } = useContext(ChatContext);
 
-  const loadingMessage = {
-    createdAt: new Date().toISOString(),
-    id: "loading-message",
-    isUserMessage: false,
-    text: (
-      <span className="flex h-full items-center justify-center">
-        <Loader2 className="h-4 w-4 animate-spin" />
-      </span>
-    ),
-  };
+  const loadingMessage = useMemo(() => {
+    return {
+      createdAt: new Date().toISOString(),
+      id: "loading-message",
+      isUserMessage: false,
+      text: (
+        <span className="flex h-full items-center justify-center">
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </span>
+      ),
+    };
+  }, []);
 
   const { data, isLoading } = queryApi.useListQueryLogsQuery({
     session_id: session_id,
@@ -42,12 +38,15 @@ const Messages = ({
     query_like: undefined,
   });
 
-  const testMessage = {
-    createdAt: new Date().toISOString(),
-    id: uuid(),
-    isUserMessage: false,
-    text: "Hello, how can I help you today? I am a test message. I do have nothing else to say, sorry for being dummy. ",
-  };
+  isLoading;
+  const testMessage = useMemo(() => {
+    return {
+      createdAt: new Date().toISOString(),
+      id: uuid(),
+      isUserMessage: false,
+      text: "Hello, how can I help you today? I am a test message. I do have nothing else to say, sorry for being dummy. ",
+    };
+  }, []);
 
   const messages: ExtendedMessage[] = useMemo(() => {
     return [
@@ -90,7 +89,7 @@ const Messages = ({
       }) ?? []),
       testMessage,
     ]; //data?.pages.flatMap((page) => page.messages);
-  }, [data, lastMessage]);
+  }, [data, lastMessage, isProcessing, loadingMessage, testMessage]);
 
   const combinedMessages = [
     ...(false ? [loadingMessage] : []),
@@ -106,7 +105,6 @@ const Messages = ({
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      console.log("fetching next page");
     }
   }, [entry]);
 

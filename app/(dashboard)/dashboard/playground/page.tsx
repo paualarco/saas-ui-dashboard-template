@@ -1,53 +1,23 @@
 "use client";
-import BreadCrumb from "@/components/breadcrumb";
-import { CreateProfileOne } from "@/components/forms/user-profile-stepper/create-profile";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Paperclip, Search } from "lucide-react";
 import { ChatTextarea } from "@/components/chat/ChatTextarea";
 import { SearchSettings } from "@/components/forms/search-settings/search-settings";
-import { ChatMessage, ExtendedMessage } from "@/components/chat/Message";
 import Messages from "@/components/chat/Messages";
-import { v4 as uuid } from "uuid";
 import { useState } from "react";
-import { set } from "date-fns";
 import { queryApi } from "@/app/api/queryApi";
 
-const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
 export default function Page() {
-  const message2: ExtendedMessage = {
-    id: "2",
-    createdAt: "2021-09-01T00:00:20Z",
-    text: "Good!",
-    isUserMessage: false,
-  };
-
-  const message1: ExtendedMessage = {
-    id: "1",
-    createdAt: "2021-09-01T00:00:00Z",
-    text: "Hello, how can I help you today?",
-    isUserMessage: true,
-  };
-
   const session_id = "ccadd12d-6c1d-4339-bd88-5f0454cd8972"; //uuid();
   const [lastMessage, setLastMessage] = useState<string | undefined>();
   const [query, { isLoading }] = queryApi.useQueryMutation();
 
   const handleOnSendMessage = (message: string) => {
-    console.log("handleOnSendMessage", message);
     setLastMessage(message);
     query({ query: message, top_k: 5, session_id: session_id });
   };

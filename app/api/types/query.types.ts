@@ -1,5 +1,3 @@
-import { UUID } from "crypto";
-
 export type QueryApiResult = {
   id: string;
   query: string;

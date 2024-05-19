@@ -1,4 +1,3 @@
-import { IndexSelector } from "@/components/select/index-selector";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,7 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import { Bird, Rabbit, Turtle } from "lucide-react";
 
 export function SearchSettings() {
@@ -275,7 +273,7 @@ export function SearchSettings() {
           </div>
           <div className="grid gap-3">
             <Label htmlFor="index">Index</Label>
-            <IndexSelector />
+            {/* <IndexSelector /> */}
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="grid gap-3">
