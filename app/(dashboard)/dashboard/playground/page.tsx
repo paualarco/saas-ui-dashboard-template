@@ -19,11 +19,7 @@ import {
 import { Paperclip, Search } from "lucide-react";
 import { ChatTextarea } from "@/components/chat/ChatTextarea";
 import { SearchSettings } from "@/components/forms/search-settings/search-settings";
-import {
-  ChatMessage,
-  ExtendedMessage,
-  Message,
-} from "@/components/chat/Message";
+import { ChatMessage, ExtendedMessage } from "@/components/chat/Message";
 import Messages from "@/components/chat/Messages";
 import { v4 as uuid } from "uuid";
 import { useState } from "react";
@@ -32,14 +28,14 @@ import { queryApi } from "@/app/api/queryApi";
 
 const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
 export default function page() {
-  const message2: Message = {
+  const message2: ExtendedMessage = {
     id: "2",
     createdAt: "2021-09-01T00:00:20Z",
     text: "Good!",
     isUserMessage: false,
   };
 
-  const message1: Message = {
+  const message1: ExtendedMessage = {
     id: "1",
     createdAt: "2021-09-01T00:00:00Z",
     text: "Hello, how can I help you today?",
