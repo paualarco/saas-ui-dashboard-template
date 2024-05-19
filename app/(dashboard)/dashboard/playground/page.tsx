@@ -27,7 +27,7 @@ import { set } from "date-fns";
 import { queryApi } from "@/app/api/queryApi";
 
 const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
-export default function page() {
+export default function Page() {
   const message2: ExtendedMessage = {
     id: "2",
     createdAt: "2021-09-01T00:00:20Z",
