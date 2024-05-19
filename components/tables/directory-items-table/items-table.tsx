@@ -1,6 +1,5 @@
 "use client";
 import { directoryItemsApi } from "@/app/api/api";
-import { DirItem } from "@/constants/directory";
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
 

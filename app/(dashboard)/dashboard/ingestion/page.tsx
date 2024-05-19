@@ -1,19 +1,5 @@
-import BreadCrumb from "@/components/breadcrumb";
-import { Icons } from "@/components/icons";
 import { IntegrationCard } from "@/components/integrations/integration-card";
-import { UserClient } from "@/components/tables/user-tables/client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { users } from "@/constants/data";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Image from "next/image";
 
 export default function page() {
   const notionDescription =

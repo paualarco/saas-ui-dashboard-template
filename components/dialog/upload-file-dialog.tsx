@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -13,10 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { UploadIcon } from "@radix-ui/react-icons";
 import * as z from "zod";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -30,27 +28,12 @@ import { useToast } from "../ui/use-toast";
 import { CustomDropzone } from "../file-upload";
 import { IndexSelector } from "@/components/select/index-selector";
 import { SplitterSelector } from "@/components/select/splitter-selector";
-import axios, { endpoints } from "@/lib/axios";
-import { AxiosResponse } from "axios";
 import { CreateDirItemRequest } from "@/constants/directory";
 import React from "react";
-import { on } from "events";
-import { set } from "date-fns";
 import { directoryItemsApi } from "@/app/api/api";
 
 type ProductFormValues = z.infer<typeof formSchema>;
 export const IMG_MAX_LIMIT = 3;
-
-const ImgSchema = z.object({
-  fileName: z.string(),
-  name: z.string(),
-  fileSize: z.number(),
-  size: z.number(),
-  fileKey: z.string(),
-  key: z.string(),
-  fileUrl: z.string(),
-  url: z.string(),
-});
 
 const formSchema = z.object({
   units: z.coerce.number(),
@@ -83,16 +66,10 @@ export function UploadDialog({
         splitter: "chunker",
       };
 
-  const params = useParams();
-  const router = useRouter();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [imgLoading, setImgLoading] = useState(false);
-  const description = initialData ? "Edit a product." : "Add a new product";
-  const toastMessage = initialData ? "Product updated." : "Product created.";
-
-  const [sucessFileNames, setSuccessFileNames] = useState<string[]>([]);
+  // const [loading, setLoading] = useState(false);
+  const [successFileNames, setSuccessFileNames] = useState<string[]>([]);
   const [failedFileNames, setFailedFileNames] = useState<string[]>([]);
 
   const [files, setFiles] = useState<File[]>([]);
@@ -136,33 +113,37 @@ export function UploadDialog({
 
   const [createDirItem, { isLoading }] =
     directoryItemsApi.useCreateDirectoryItemMutation();
-  const uploadFileMultipart = useCallback(async (file: File) => {
-    const request: CreateDirItemRequest = {
-      name: file.name,
-      file: file,
-      description: "",
-      parent_id: undefined,
-      tags: ["test"],
-      //is_external_integration: false
-    };
-    await createDirItem(request);
-  }, []);
-
-  const getFileState = useCallback(
-    (fileName: string) => {
-      if (failedFileNames.includes(fileName)) {
-        return "error";
-      }
-      if (sucessFileNames.includes(fileName)) {
-        return "success";
-      } else return undefined;
+  isLoading;
+  const uploadFileMultipart = useCallback(
+    async (file: File) => {
+      const request: CreateDirItemRequest = {
+        name: file.name,
+        file: file,
+        description: "",
+        parent_id: undefined,
+        tags: ["test"],
+        //is_external_integration: false
+      };
+      await createDirItem(request);
     },
-    [sucessFileNames, failedFileNames],
+    [createDirItem],
   );
 
-  const isFailedFile = (fileName: string) => {
-    return failedFileNames.includes(fileName);
-  };
+  // const getFileState = useCallback(
+  //   (fileName: string) => {
+  //     if (failedFileNames.includes(fileName)) {
+  //       return "error";
+  //     }
+  //     if (sucessFileNames.includes(fileName)) {
+  //       return "success";
+  //     } else return undefined;
+  //   },
+  //   [sucessFileNames, failedFileNames],
+  // );
+
+  // const isFailedFile = (fileName: string) => {
+  //   return failedFileNames.includes(fileName);
+  // };
 
   const handleUpload = useCallback(
     async (data: ProductFormValues) => {
@@ -170,7 +151,7 @@ export function UploadDialog({
         files.map(async (file) => {
           await uploadFileMultipart(file)
             .then(() => {
-              setSuccessFileNames([...sucessFileNames, file.name]);
+              setSuccessFileNames([...successFileNames, file.name]);
             })
             .catch((error) => {
               setFailedFileNames([...failedFileNames, file.name]);
@@ -200,7 +181,6 @@ export function UploadDialog({
               title: "File already exists",
             });
           } else {
-            console.log("unknwn error: " + error);
             toast({
               variant: "destructive",
               title: "Oh no! Something went wrong.",
@@ -208,7 +188,14 @@ export function UploadDialog({
           }
         });
     },
-    [files],
+    [
+      files,
+      failedFileNames,
+      setSuccessFileNames,
+      toast,
+      uploadFileMultipart,
+      successFileNames,
+    ],
   );
 
   const form = useForm<ProductFormValues>({
@@ -216,15 +203,12 @@ export function UploadDialog({
     defaultValues,
   });
 
-  const units = form.watch("units");
-  const overlap = form.watch("overlap");
+  // const units = form.watch("units");
+  // const overlap = form.watch("overlap");
 
-  const isValid: boolean = useMemo(() => {
-    console.log("units:" + units);
-    console.log("overlap:" + overlap);
-    console.log("files:" + files.length);
-    return units > overlap && files.length > 0;
-  }, [units, overlap, files]);
+  // const isValid: boolean = useMemo(() => {
+  //   return units > overlap && files.length > 0;
+  // }, [units, overlap, files]);
 
   return (
     <div>
@@ -306,7 +290,7 @@ export function UploadDialog({
                           <Input
                             type="number"
                             step={10}
-                            disabled={loading}
+                            disabled={true}
                             {...field}
                           />
                         </FormControl>
@@ -324,7 +308,7 @@ export function UploadDialog({
                           <Input
                             type="number"
                             step={10}
-                            disabled={loading}
+                            disabled={true}
                             {...field}
                           />
                         </FormControl>

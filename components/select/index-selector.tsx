@@ -17,7 +17,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useWatch } from "react-hook-form";
 
 const frameworks = [
   {
@@ -62,9 +61,6 @@ export type IndexSelectorProps = {
 
 export function IndexSelector({ value, onChange }: IndexSelectorProps) {
   const [open, setOpen] = React.useState(false);
-  console.log("value" + value);
-  const v = frameworks.find((framework) => framework.value === value)?.label;
-  console.log("v" + v);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -91,7 +87,6 @@ export function IndexSelector({ value, onChange }: IndexSelectorProps) {
                 value === framework.value && "bg-opacity-10",
               )}
               onClick={() => {
-                console.log("select value" + framework.value);
                 onChange(framework.value);
                 setOpen(false);
               }}

@@ -1,19 +1,8 @@
 "use client";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { UploadDropzone } from "@uploadthing/react";
 import { Cloud, FileIcon, Trash } from "lucide-react";
-import Image from "next/image";
-import { UploadFileResponse } from "uploadthing/client";
-import { IMG_MAX_LIMIT } from "./forms/product-form";
 import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
-import { Card } from "@tremor/react";
-import { CardContent, CardTitle } from "./ui/card";
 import Dropzone from "react-dropzone";
 import React from "react";
-import { Progress } from "@/components/ui/progress";
-import { set } from "date-fns";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface CustomDropzoneProps {
   files: File[];
@@ -22,34 +11,34 @@ interface CustomDropzoneProps {
 }
 
 export const CustomDropzone = (props: CustomDropzoneProps) => {
-  const [isUploading, setIsUploading] = React.useState<boolean>(true);
-  const [uploadProgress, setUploadProgress] = React.useState<number>(0);
+  // const [isUploading, setIsUploading] = React.useState<boolean>(true);
+  // const [uploadProgress, setUploadProgress] = React.useState<number>(0);
 
-  const startSimulatedProgress = () => {
-    setUploadProgress(0);
+  // const startSimulatedProgress = () => {
+  //   setUploadProgress(0);
 
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 95) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 5;
-      });
-    }, 500);
-    return interval;
-  };
+  //   const interval = setInterval(() => {
+  //     setUploadProgress((prev) => {
+  //       if (prev >= 95) {
+  //         clearInterval(interval);
+  //         return prev;
+  //       }
+  //       return prev + 5;
+  //     });
+  //   }, 500);
+  //   return interval;
+  // };
 
   return (
     <Dropzone
       multiple={false}
       onDrop={async (acceptedFile) => {
         props.onAdd(acceptedFile);
-        setIsUploading(true);
-        const progressInterval = startSimulatedProgress();
+        // setIsUploading(true);
+        // const progressInterval = startSimulatedProgress();
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        clearInterval(progressInterval);
-        setUploadProgress(100);
+        // clearInterval(progressInterval);
+        // setUploadProgress(100);
       }}
       accept={{
         "application/pdf": [".pdf"],

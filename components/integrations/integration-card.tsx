@@ -1,16 +1,9 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Task } from "@/lib/store";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { cva } from "class-variance-authority";
-import { GripVertical } from "lucide-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { UploadDialog } from "../dialog/upload-file-dialog";
