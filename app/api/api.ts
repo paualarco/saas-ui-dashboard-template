@@ -9,9 +9,19 @@ import {
 // return (
 //   `/api/directory/items?limit=${limit}&offset=${offset}` +
 //   parentIdQueryParam
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
+const baseUrl =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:8000/api"
+    : process.env.REACT_APP_API_URL ??
+      "https://ragman-api-33800e7368fc.herokuapp.com";
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api",
+    baseUrl: baseUrl,
   }),
   endpoints: () => ({}),
 });
