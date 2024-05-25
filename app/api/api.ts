@@ -35,6 +35,9 @@ console.log("baseUrl", baseUrl);
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "https://rag-ui.vercel.app",
+    },
   }),
   endpoints: () => ({}),
 });
