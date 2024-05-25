@@ -13,12 +13,25 @@ import {
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace NodeJS {
+    interface ProcessEnv {
+      RAGMAN_API_HOST: string;
+    }
+  }
+}
 
 const baseUrl =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:8000/api"
-    : process.env.REACT_APP_API_URL ??
-      "https://ragman-api-33800e7368fc.herokuapp.com";
+    : process.env.RAGMAN_API_HOST ??
+      "https://ragman-api-33800e7368fc.herokuapp.com/api";
+
+console.log("process.env", JSON.stringify(process.env));
+console.log("process.env", JSON.stringify(process.env.RAGMAN_API_HOST));
+console.log("baseUrl", baseUrl);
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
