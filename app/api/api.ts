@@ -37,6 +37,8 @@ export const api = createApi({
     baseUrl: baseUrl,
     headers: {
       "Access-Control-Allow-Origin": "https://rag-ui.vercel.app",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
+      "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
     },
   }),
   endpoints: () => ({}),
