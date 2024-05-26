@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { UploadIcon } from "@radix-ui/react-icons";
 import * as z from "zod";
-import { useCallback, useState } from "react";
+import React, { ReactElement, ReactNode, useCallback, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -29,8 +29,8 @@ import { CustomDropzone } from "../file-upload";
 import { IndexSelector } from "@/components/select/index-selector";
 import { SplitterSelector } from "@/components/select/splitter-selector";
 import { CreateDirItemRequest } from "@/constants/directory";
-import React from "react";
 import { directoryItemsApi } from "@/app/api/api";
+import PropTypes from "prop-types";
 
 type ProductFormValues = z.infer<typeof formSchema>;
 export const IMG_MAX_LIMIT = 3;
@@ -42,16 +42,21 @@ const formSchema = z.object({
   splitter: z.string().min(3, { message: "The chunker name must be valid" }),
   category: z.string().min(1, { message: "Please select a category" }),
 });
+
 interface ProductFormProps {
   initialData?: any;
   buttonName?: string;
   showIcon?: boolean;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 export function UploadDialog({
   initialData,
   buttonName,
   showIcon,
+  isOpen,
+  setIsOpen,
 }: ProductFormProps) {
   const defaultValues = initialData
     ? initialData
@@ -67,7 +72,6 @@ export function UploadDialog({
       };
 
   const { toast } = useToast();
-  const [open, setOpen] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [successFileNames, setSuccessFileNames] = useState<string[]>([]);
   const [failedFileNames, setFailedFileNames] = useState<string[]>([]);
@@ -164,7 +168,7 @@ export function UploadDialog({
             variant: "default",
             title: "Upload success",
           });
-          setOpen(false);
+          setIsOpen(false);
           // onUpload ? onUpload() : {};
           // onClose();
         })
@@ -213,25 +217,14 @@ export function UploadDialog({
   return (
     <div>
       <Dialog
-        open={open}
+        open={isOpen}
         onOpenChange={() => {
           setFiles([]);
-          if (open) {
-            setOpen(false);
+          if (isOpen) {
+            setIsOpen(false);
           }
         }}
       >
-        <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="ml-auto h-9 lg:flex"
-            onClick={() => setOpen(true)}
-          >
-            {(showIcon ?? true) && <UploadIcon className="mr-2 h-4 w-4" />}
-            {buttonName ?? "Upload"}
-          </Button>
-        </DialogTrigger>
-
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Upload file</DialogTitle>

@@ -22,16 +22,19 @@ export const TextMessage = forwardRef<HTMLDivElement, TextMessageProps>(
         )}
       >
         <div
-          className={cn("px-4 py-1.5 rounded-lg inline-block", {
-            "bg-white dark:bg-zinc-900 dark:text-white outlined":
-              message.isUserMessage,
-            "bg-gray-200 text-gray-900 dark:text-white dark:bg-zinc-800":
-              !message.isUserMessage,
-            "rounded-br-none":
-              !isNextMessageSamePerson && message.isUserMessage,
-            "rounded-bl-none":
-              !isNextMessageSamePerson && !message.isUserMessage,
-          })}
+          className={cn(
+            "px-4 py-1.5 rounded-lg inline-block bg-white dark:bg-zinc-900 dark:text-white outlined",
+            {
+              "bg-sky-50 dark:bg-sky-950 dark:text-white outlined":
+                message.isUserMessage,
+              "bg-white dark:bg-zinc-900 dark:text-white outlined":
+                !message.isUserMessage,
+              "rounded-br-none":
+                !isNextMessageSamePerson && message.isUserMessage,
+              "rounded-bl-none":
+                !isNextMessageSamePerson && !message.isUserMessage,
+            },
+          )}
         >
           {typeof message.text === "string" ? (
             <ReactMarkdown

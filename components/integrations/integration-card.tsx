@@ -7,6 +7,7 @@ import {
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { UploadDialog } from "../dialog/upload-file-dialog";
+import { Button } from "../ui/button";
 
 // export interface Task {
 //   id: UniqueIdentifier;
@@ -19,6 +20,7 @@ interface IntegrationCardProps {
   title: string;
   description: string;
   disabled?: boolean;
+  handleOnConnect?: VoidFunction;
 }
 
 export function IntegrationCard({
@@ -26,6 +28,7 @@ export function IntegrationCard({
   title,
   description,
   disabled,
+  handleOnConnect,
 }: IntegrationCardProps) {
   return (
     <Card>
@@ -55,7 +58,13 @@ export function IntegrationCard({
               <Image alt="" src={img} width={60} height={60}></Image>
             </div>
             <div>
-              <UploadDialog showIcon={false} buttonName="Connect" />
+              <Button
+                className="outlined"
+                variant={"outline"}
+                onClick={handleOnConnect}
+              >
+                Connect
+              </Button>
             </div>
           </div>
         </div>

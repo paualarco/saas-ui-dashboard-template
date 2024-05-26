@@ -52,7 +52,7 @@ export const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(
             return (
               <div
                 key={doc.id}
-                className="p-1 cursor-pointer flex flex-row whitespace-nowrap truncate gap-x-2 border rounded-md text-sm "
+                className="p-1 cursor-pointer flex flex-row whitespace-nowrap truncate gap-x-2 border rounded-md text-sm bg-white dark:bg-zinc-900 dark:text-white outlined"
               >
                 {mediaTypeToIcon(doc)} {doc.title}
               </div>
